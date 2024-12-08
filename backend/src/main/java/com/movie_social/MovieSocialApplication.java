@@ -1,4 +1,4 @@
-package com.movie_social.Movie_Social;
+package com.movie_social;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

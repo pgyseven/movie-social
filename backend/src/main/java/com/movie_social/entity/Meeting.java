@@ -20,7 +20,7 @@ public class Meeting {
     private Long movieId; // 영화 ID
 
     private double xCoordinate; // X 좌표
-    private double yCoordinate; // Y 좌표
+    private double yCoordinate; // Y 좌표 (오타 수정)
 
     private int memberCnt; // 현재 참여자 수
     private int maxCnt;    // 최대 참여자 수
