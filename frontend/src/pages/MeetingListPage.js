@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function MeetingListPage() {
   const [meetings, setMeetings] = useState([]); // content 데이터를 저장
@@ -46,6 +47,7 @@ function MeetingListPage() {
               참여자: {meeting.memberCnt}/{meeting.maxCnt}
             </p>
             <p>날짜: {new Date(meeting.meetingDate).toLocaleDateString()}</p>
+            <Link to={`/meetings/${meeting.meetingNo}`}>자세히 보기</Link>
           </MeetingItem>
         ))}
       </MeetingList>
