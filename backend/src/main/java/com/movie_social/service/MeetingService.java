@@ -16,6 +16,12 @@ public class MeetingService {
         this.meetingRepository = meetingRepository;
     }
 
+    // (추가) 단건 조회 로직
+    public Meeting getMeetingById(Long id) {
+        return meetingRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Meeting not found with id=" + id));
+    }
+
     public List<Meeting> getTop10Meetings() {
         return meetingRepository.findTop10ByOrderByMemberCntAndRegDate();
     }
