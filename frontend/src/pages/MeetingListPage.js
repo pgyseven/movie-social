@@ -4,18 +4,17 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 function MeetingListPage() {
-  const [meetings, setMeetings] = useState([]); // content 데이터를 저장
+  const [meetings, setMeetings] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const meetingsPerPage = 10; // 기본 페이지 크기
 
   useEffect(() => {
     axios
       .get(`http://localhost:8081/api/meetings?page=${currentPage - 1}`)
       .then((response) => {
         if (response.data && Array.isArray(response.data.content)) {
-          setMeetings(response.data.content); // content 데이터로 상태 설정
-          setTotalPages(response.data.totalPages); // 총 페이지 수 업데이트
+          setMeetings(response.data.content);
+          setTotalPages(response.data.totalPages);
         } else {
           console.error('Expected content array but got:', response.data);
         }
@@ -23,9 +22,8 @@ function MeetingListPage() {
       .catch((error) => {
         console.error('Error fetching meetings:', error);
       });
-  }, [currentPage]); // currentPage 변경 시 데이터 다시 요청
+  }, [currentPage]);
 
-  // 페이지 변경 핸들러
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
@@ -38,19 +36,22 @@ function MeetingListPage() {
           새 모임 만들기
         </NewMeetingButton>
       </Header>
+
       <MeetingList>
         {meetings.map((meeting) => (
           <MeetingItem key={meeting.meetingNo}>
             <h3>{meeting.meetingName}</h3>
             <p>{meeting.description}</p>
-            <p>
-              참여자: {meeting.memberCnt}/{meeting.maxCnt}
-            </p>
+            {/* -------------------------- */}
+            {/* 수정: 기존 참여자 -> 참여 가능 인원 */}
+            <p>참여 가능 인원: {meeting.maxCnt}</p>
+            {/* -------------------------- */}
             <p>날짜: {new Date(meeting.meetingDate).toLocaleDateString()}</p>
             <Link to={`/meetings/${meeting.meetingNo}`}>자세히 보기</Link>
           </MeetingItem>
         ))}
       </MeetingList>
+
       <Pagination>
         {Array.from({ length: totalPages }, (_, i) => (
           <PageNumber
