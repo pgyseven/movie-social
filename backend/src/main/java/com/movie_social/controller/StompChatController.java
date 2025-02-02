@@ -17,22 +17,30 @@ public class StompChatController {
         // message 내용을 그대로 반환하면, 구독 중인 클라이언트 전부에게 전송됨
         return message;
     }
-
-    // 메시지 형식 DTO (간단 버전)
+    // ChatMessage DTO에 sender 필드 추가
     public static class ChatMessage {
-        private String message;
+        private String sender;   // 새로 추가
+        private String message;  // 기존
 
         public ChatMessage() {
         }
 
-        public ChatMessage(String message) {
+        public ChatMessage(String sender, String message) {
+            this.sender = sender;
             this.message = message;
+        }
+
+        // Getter/Setter
+        public String getSender() {
+            return sender;
+        }
+        public void setSender(String sender) {
+            this.sender = sender;
         }
 
         public String getMessage() {
             return message;
         }
-
         public void setMessage(String message) {
             this.message = message;
         }
